@@ -1,0 +1,1 @@
+komplex számológép, svg file-ba írja a számsíkon ábrázoltakat. Beolvas és tárol komplex számokat, átalakít az alakjai között. Tudnia kell összeadni, szorozni, osztani, egész hatványozni, és valamint svg file-ban a számokat ábározlni a komplex számsíkon.
