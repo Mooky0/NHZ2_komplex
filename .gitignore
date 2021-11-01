@@ -54,3 +54,4 @@ dkms.conf
 #Sajat
 *.zip
 tictactoe/
+.vscode/

@@ -42,12 +42,12 @@ komplex_algebrai osszead(komplex_algebrai szam1, komplex_algebrai szam2){
 }
 
 int main(){
-	char opcio[1];
+	char opcio;
     printf("OCIO: ");
-    scanf("%c", &opcio[1]);
+    scanf(" %c", &opcio);
     while(opcio != 'Q'){
         /* TODO lower to upper*/
-        switch (opcio[1]){
+        switch (opcio){
         case 'I':
             /* TODO Ide jön a beolvasás*/
             printf("Opcio meg nem letezik(I)");
@@ -71,7 +71,7 @@ int main(){
             break;
         }
         printf("\nOCIO: ");
-        scanf("%c", &opcio[1]);
+        scanf(" %c", &opcio);
 
     }
     printf("itt van.");
