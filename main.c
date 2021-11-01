@@ -13,7 +13,6 @@ int main(){
     scanf(" %c", &opcio);
     nagybetube(&opcio);
     while(opcio != 'Q'){
-        /* TODO lower to upper*/
         switch (opcio){
         case 'I':
             /* TODO Ide jön a beolvasás*/
