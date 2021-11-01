@@ -41,10 +41,15 @@ komplex_algebrai osszead(komplex_algebrai szam1, komplex_algebrai szam2){
 
 }
 
+void nagybetube(char *c);
+
 int main(){
 	char opcio;
+    printf("Ez egy komplex szamologep, komplex szamokat lehet beolvasni, eltarolni es szamolni veluk\n"
+    "Az ociok:\n[I] - Beolvasas\n[O/M] - Muveletvegzes(szamolas)\n[D/A] - Abrazolas (svg file-ba)\n[S] - mentes txt-be\n[Q] - kilepes\n");
     printf("OCIO: ");
     scanf(" %c", &opcio);
+    nagybetube(&opcio);
     while(opcio != 'Q'){
         /* TODO lower to upper*/
         switch (opcio){
@@ -72,9 +77,18 @@ int main(){
         }
         printf("\nOCIO: ");
         scanf(" %c", &opcio);
+        nagybetube(&opcio);
+        
 
     }
-    printf("itt van.");
 
     return 0;
+}
+
+
+void nagybetube(char *c){
+    if (*c >= 'a' && *c <= 'z')
+        *c = *c - ('a' - 'A');
+    else
+        *c = *c;
 }
