@@ -1,6 +1,29 @@
 #include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "muveletek.h"
+
+void beolvasas(){
+    printf("Milyen alakban szeretnél beolvasni?\n"
+    "[A]lgebrai vagy [T]riginometriai?\n");
+    char alak;
+    scanf("%c", &alak);
+    nagybetube(&alak);
+    if (alak == 'A'){
+        
+    }
+}
+
+/*Pointerként kapott char-t alakít át nagybetűssé, ha kisbetű, ha bármi mi más
+* a kapott pointerbe visszaadja ugyan az.*/
+void nagybetube(char *c){
+    if (*c >= 'a' && *c <= 'z')
+        *c = *c - ('a' - 'A');
+    else
+        *c = *c;
+}
+
 
 /*komplex számokat alakít át algebrai alakból, trigonometrikusba (ami itt egyenértékű
  * az exponenciálissal). egyenlőre pointerből pointerbe dolgozik, de ezen később

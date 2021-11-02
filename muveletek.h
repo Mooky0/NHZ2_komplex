@@ -11,6 +11,10 @@ typedef struct komplex{
     double r, fi; //Első körben fokban tárolom a szöget, utána lehet váltani kell radiánra.
 } komplex;
 
+void beolvasas();
+
+void nagybetube(char *c);
+
 /*komplex számokat alakít át algebrai alakból, trigonometrikusba (ami itt egyenértékű
  * az exponenciálissal). egyenlőre pointerből pointerbe dolgozik, de ezen később
  * valószínűleg válotoztatni kell.

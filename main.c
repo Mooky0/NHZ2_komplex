@@ -2,8 +2,8 @@
 #include <stdio.h>
 
 #include "muveletek.h"
-
-void nagybetube(char *c);
+//#include "beolvasas.h"
+#include "debugmalloc.h"
 
 int main(){
 	char opcio;
@@ -46,10 +46,3 @@ int main(){
     return 0;
 }
 
-
-void nagybetube(char *c){
-    if (*c >= 'a' && *c <= 'z')
-        *c = *c - ('a' - 'A');
-    else
-        *c = *c;
-}
