@@ -2,18 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "beolvasas.h"
 #include "muveletek.h"
 
-void beolvasas(){
-    printf("Milyen alakban szeretnél beolvasni?\n"
-    "[A]lgebrai vagy [T]riginometriai?\n");
-    char alak;
-    scanf("%c", &alak);
-    nagybetube(&alak);
-    if (alak == 'A'){
-        
-    }
-}
 
 /*Pointerként kapott char-t alakít át nagybetűssé, ha kisbetű, ha bármi mi más
 * a kapott pointerbe visszaadja ugyan az.*/
@@ -25,13 +16,15 @@ void nagybetube(char *c){
 }
 
 
-/*komplex számokat alakít át algebrai alakból, trigonometrikusba (ami itt egyenértékű
- * az exponenciálissal). egyenlőre pointerből pointerbe dolgozik, de ezen később
- * valószínűleg válotoztatni kell.
+/*komplex számokat alakít át algebrai alakból, trigonometraiba (ami itt egyenértékű
+ * az exponenciálissal). Pointerből dolgozik, trig alakkal tér vissza.
  * A szög fokban értendő, később szintén válozni fog.*/
-void algebrai_to_trig(komplex_algebrai *alg, komplex *trig){
-    trig->r = sqrt(alg->Re*alg->Re + alg->Im * alg->Im);
-    trig->fi = (atan(alg->Im / alg->Re) * 180) / M_PI;
+komplex algebrai_to_trig(komplex_algebrai *alg){
+    komplex trig;
+    trig.r = sqrt(alg->Re*alg->Re + alg->Im * alg->Im);
+    trig.fi = (atan(alg->Im / alg->Re) * 180) / M_PI;
+    trig.az = alg->az;
+    return trig;
 
 }
 
@@ -39,9 +32,12 @@ void algebrai_to_trig(komplex_algebrai *alg, komplex *trig){
  * alegbrai alakba. Egyenlőre pointerekkel dolgozik, mert az fun, de túl bonyinak tűnik...
  * majd át kell alakítani, hogy rendesn stack-en dolgozzon, return value-vel.
  * A szög fokban értendő, később szintén válozni fog.*/
-void trig_to_alg(komplex *trig, komplex_algebrai *alg){
-    alg->Re = trig->r * cos((trig->fi * M_PI) / 180);
-    alg->Im = trig->r * sin((trig->fi * M_PI) / 180);
+komplex_algebrai trig_to_alg(komplex *trig){
+    komplex_algebrai alg;
+    alg.Re = trig->r * cos((trig->fi * M_PI) / 180);
+    alg.Im = trig->r * sin((trig->fi * M_PI) / 180);
+    alg.az = trig->az;
+    return alg;
 }
 
 /*Összead kettő komplex számot algebrai alakban, és algebrai alakban tér vissza
@@ -80,5 +76,13 @@ komplex osztas(komplex osztando, komplex oszto){
 
 /*komplex szam egész hatványát számolja, ha nem egész akkor típuskonverzióval levágja a végét*/
 komplex hatvany(komplex alap, int kitevo){
-    return 0; //meg kell írni egész hatványozással problémák...
+    komplex visszaszam;
+    visszaszam.fi = alap.fi * kitevo;
+    double hatvany;
+    while (kitevo != 0){
+        hatvany *= alap.r;
+        kitevo--;
+    }
+    visszaszam.r = hatvany;
+    return visszaszam;
 }
