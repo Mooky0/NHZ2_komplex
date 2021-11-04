@@ -4,6 +4,7 @@
 
 #include "beolvasas.h"
 #include "muveletek.h"
+#include "debugmalloc.h"
 
 bool foglal(DinTomb *tomb, int meret){
     komplex *adat = (komplex*) malloc(meret * sizeof(komplex));
@@ -15,27 +16,28 @@ bool foglal(DinTomb *tomb, int meret){
     return true;
 }
 
-bool ujrafoglal(DinTomb *tomb, int meret){
-    komplex *ujadat = (komplex*) malloc(meret * sizeof(komplex));
-    int utolso = tomb->utolso_az;
+bool ujrafoglal(DinTomb *tomb){
+    komplex *ujadat = (komplex*) malloc(tomb->meret+1 * sizeof(komplex));
     if (ujadat == NULL)
         return false;
-    int min = meret < tomb->meret ? meret : tomb->meret;
-    for (int i = 0; i < min; ++i){
+    int utolso = tomb->utolso_az;
+    //int min = meret < tomb->meret ? meret : tomb->meret;
+    for (int i = 0; i < tomb->meret; ++i){
         ujadat[i] = tomb->adat[i];
     free(tomb->adat);
     tomb->adat = ujadat;
-    tomb->meret = meret;
+    tomb->meret = tomb->meret+1;
     tomb->utolso_az = utolso;
     return true;
     }
 }
 
 bool tombbeir(DinTomb *tomb, komplex szam){
-    ujrafoglal(tomb, tomb->meret+1);
+    printf("%s", ujrafoglal(tomb) ? "ujrafoglal jo\n" : "ujrafoglal nem jo\n");
     tomb->adat[tomb->meret-1].r = szam.r; 
     tomb->adat[tomb->meret-1].fi = szam.fi; 
     tomb->adat[tomb->meret-1].az = tomb->utolso_az+1;
+    printf("feltolt jo");
 }
 
 void dintomb_kiir(DinTomb const *dt) {
@@ -65,7 +67,9 @@ void beolvasas(DinTomb *szamok){
         scanf("%d", &szam.r);
         printf("A szam argumentumszoge: ");
         scanf("%d", &szam.fi);
+        printf("itt meg\n");
         tombbeir(szamok, szam);
+        printf("beiras jo\n");
     }
     printf("Beolvasas sikerer");
     dintomb_kiir(szamok);
