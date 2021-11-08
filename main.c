@@ -2,13 +2,12 @@
 #include <stdio.h>
 
 #include "beolvasas.h"
-#include "muveletek.h"
+//#include "muveletek.h"
 #include "debugmalloc.h"
 
 int main(){
 	char opcio;
-    DinTomb szamok;
-    printf("%s", foglal(&szamok, 0) ? "Jo" : "Nem jo");
+    komplex *fej = NULL;
     printf("Ez egy komplex szamologep, komplex szamokat lehet beolvasni, eltarolni es szamolni veluk\n"
     "Az ociok:\n[I] - Beolvasas\n[O/M] - Muveletvegzes(szamolas)\n[D/A] - Abrazolas (svg file-ba)\n[S] - mentes txt-be\n[Q] - kilepes\n");
     printf("OCIO: ");
@@ -18,7 +17,7 @@ int main(){
         switch (opcio){
         case 'I':
             /* TODO Ide jön a beolvasás*/
-            beolvasas(&szamok);
+            beolvasas(&fej);
             //printf("Opcio meg nem letezik(I)");
             break;
         case 'O':
@@ -45,7 +44,7 @@ int main(){
         
 
     }
-    //free(&szamok.adat);
+    felszabadit(fej);
     return 0;
 }
 
