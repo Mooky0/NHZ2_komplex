@@ -19,6 +19,8 @@ bool foglal(DinTomb *tomb, int meret){
 bool ujrafoglal(DinTomb *tomb){
     
     komplex *ujadat = (komplex*) malloc((tomb->meret +1) * sizeof(komplex));
+    if (ujadat == NULL){
+        printf("szar az ujrafoglal (NULL)");    
         return false;
     }
     printf("Jo az ujrafoglal.\n");
