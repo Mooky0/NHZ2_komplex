@@ -55,5 +55,5 @@ dkms.conf
 *.zip
 tictactoe/
 .vscode/
-test.c
+test*.*
 # beolvasas.*

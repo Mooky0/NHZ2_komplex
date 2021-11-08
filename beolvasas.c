@@ -17,27 +17,36 @@ bool foglal(DinTomb *tomb, int meret){
 }
 
 bool ujrafoglal(DinTomb *tomb){
-    komplex *ujadat = (komplex*) malloc(tomb->meret+1 * sizeof(komplex));
-    if (ujadat == NULL)
+    
+    komplex *ujadat = (komplex*) malloc((tomb->meret +1) * sizeof(komplex));
         return false;
-    int utolso = tomb->utolso_az;
+    }
+    printf("Jo az ujrafoglal.\n");
+    //int utolso = tomb->utolso_az;
     //int min = meret < tomb->meret ? meret : tomb->meret;
-    for (int i = 0; i < tomb->meret; ++i){
+    for (int i = 0; i < tomb->meret+1; ++i){
+        printf("ciklus\n");
         ujadat[i] = tomb->adat[i];
+        printf("atmasol ciklus\n");
+    }
+    printf("atmasol jo\n");
     free(tomb->adat);
     tomb->adat = ujadat;
     tomb->meret = tomb->meret+1;
-    tomb->utolso_az = utolso;
+    tomb->utolso_az = tomb->utolso_az +1;
+    printf("struck jo");
     return true;
-    }
 }
 
 bool tombbeir(DinTomb *tomb, komplex szam){
-    printf("%s", ujrafoglal(tomb) ? "ujrafoglal jo\n" : "ujrafoglal nem jo\n");
+    printf("belep\n");
+    ujrafoglal(tomb);
+    printf("ujrafoglal visszater");
     tomb->adat[tomb->meret-1].r = szam.r; 
     tomb->adat[tomb->meret-1].fi = szam.fi; 
-    tomb->adat[tomb->meret-1].az = tomb->utolso_az+1;
-    printf("feltolt jo");
+    tomb->adat[tomb->meret-1].az = tomb->utolso_az;
+    //printf("feltolt jo");
+    return true;
 }
 
 void dintomb_kiir(DinTomb const *dt) {
@@ -55,18 +64,18 @@ void beolvasas(DinTomb *szamok){
     if (alak == 'A'){
         komplex_algebrai szam;
         printf("Algebrai alak. Szam valas resze: ");
-        scanf("%d", &szam.Re);
+        scanf("%lf", &szam.Re);
         printf("Szam kepzetes resze: ");
-        scanf("%d", &szam.Im);
+        scanf("%lf", &szam.Im);
         komplex kompszam = algebrai_to_trig(&szam);
         tombbeir(szamok, kompszam);
     }
     else if (alak == 'T'){
         komplex szam;
         printf("Trigonometrikus alak. A szam hosza: ");
-        scanf("%d", &szam.r);
+        scanf("%lf", &szam.r);
         printf("A szam argumentumszoge: ");
-        scanf("%d", &szam.fi);
+        scanf("%lf", &szam.fi);
         printf("itt meg\n");
         tombbeir(szamok, szam);
         printf("beiras jo\n");
