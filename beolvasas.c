@@ -12,18 +12,23 @@ komplex *hozzafuz(komplex *fej, double r, double fi){
     if (uj == NULL)
         printf("malloc null\n");
     //printf("malloc jo\n");
-    uj->az = 0x1a1;
     uj->r = r;
     uj->fi = fi;
     uj->kov = NULL;
     //printf("felotoltes jo\n");
-    if (fej == NULL)
+    if (fej == NULL){
+        uj->az = 0x1a1;
         return uj;
+    }
 
     else {
         komplex *mozgo = fej;
-        while (mozgo->kov != NULL)
+        //int utolsoaz = 0x1a1;
+        while (mozgo->kov != NULL){
+            //utolsoaz = utolsoaz+1;
             mozgo = mozgo->kov;
+        }
+        //uj->az = utolsoaz;
         mozgo->kov = uj;
     }
 }
