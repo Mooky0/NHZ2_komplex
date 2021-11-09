@@ -20,11 +20,11 @@ void nagybetube(char *c){
 /*komplex számokat alakít át algebrai alakból, trigonometraiba (ami itt egyenértékű
  * az exponenciálissal). Pointerből dolgozik, trig alakkal tér vissza.
  * A szög fokban értendő, később szintén válozni fog.*/
-komplex algebrai_to_trig(komplex_algebrai *alg){
-    komplex trig;
-    trig.r = sqrt(alg->Re*alg->Re + alg->Im * alg->Im);
-    trig.fi = (atan(alg->Im / alg->Re) * 180) / M_PI;
-    trig.az = alg->az;
+komplex_trig algebrai_to_trig(komplex_algebrai alg){
+    komplex_trig trig;
+    trig.r = sqrt(alg.Re*alg.Re + alg.Im * alg.Im);
+    trig.fi = (atan(alg.Im / alg.Im) * 180) / M_PI;
+    trig.az = alg.Im;
     return trig;
 
 }
@@ -43,45 +43,54 @@ komplex_algebrai trig_to_alg(komplex *trig){
 
 /*Összead kettő komplex számot algebrai alakban, és algebrai alakban tér vissza
  * nincs kezelve az eset amikor az szám nem valós szám, később tervezem kezelni.*/
-komplex_algebrai osszead(komplex_algebrai szam1, komplex_algebrai szam2){
-	komplex_algebrai visszaszam;
-	visszaszam.Re = szam1.Re + szam2.Re;
-	visszaszam.Im = szam1.Im + szam2.Im;
+komplex_trig osszead(komplex *szam1_trig, komplex *szam2_trig){
+	komplex_trig visszaszam;
+    komplex_algebrai temp;
+    komplex_algebrai szam1, szam2;
+    szam1 = trig_to_alg(szam1_trig);
+    szam2 = trig_to_alg(szam2_trig);
+    temp.Re = szam1.Re + szam2.Re;
+	temp.Im = szam1.Im + szam2.Im;
+    visszaszam = algebrai_to_trig(temp);
 	return visszaszam;
 
 }
 
 /*Kivon kettő komplex számot algebrai alakban, és algebrai alakban tér vissza*/
-komplex_algebrai kivon(komplex_algebrai kisebbitendo, komplex_algebrai kivonando){
-    komplex_algebrai visszaszam;   
-	visszaszam.Re = kisebbitendo.Re + kivonando.Re;
-	visszaszam.Im = kisebbitendo.Im + kivonando.Im;
+komplex_trig kivon(komplex *szam1, komplex *szam2){
+    komplex_trig visszaszam;   
+    komplex_algebrai temp;
+    komplex_algebrai kisebbitendo = trig_to_alg(szam1);
+    komplex_algebrai kivonando = trig_to_alg(szam2);
+	temp.Re = kisebbitendo.Re + kivonando.Re;
+	temp.Im = kisebbitendo.Im + kivonando.Im;
+    visszaszam = algebrai_to_trig(temp);
     return visszaszam;
 }
 
 /*komplex számokat szoroz össze trig alakban, azzal is tér vissza*/
-komplex szorzas(komplex szam1, komplex szam2){
-    komplex visszaszam;
-    visszaszam.r = szam1.r * szam2.r;
-    visszaszam.fi = szam1.fi + szam2.fi;
+komplex_trig szorzas(komplex *szam1, komplex *szam2){
+    komplex_trig visszaszam;
+    visszaszam.r = szam1->r * szam2->r;
+    visszaszam.fi = szam1->fi + szam2->fi;
     return visszaszam;
 }
 
 /*komplex számokat oszt egymással trig alakban, azzal is tér vissza*/
-komplex osztas(komplex osztando, komplex oszto){
-    komplex visszaszam;
-    visszaszam.r = osztando.r / oszto.r;
-    visszaszam.fi = osztando.fi - oszto.fi;
+komplex_trig osztas(komplex *osztando, komplex *oszto){
+    komplex_trig visszaszam;
+    visszaszam.r = osztando->r / oszto->r;
+    visszaszam.fi = osztando->fi - oszto->fi;
     return visszaszam;
 }
 
 /*komplex szam egész hatványát számolja, ha nem egész akkor típuskonverzióval levágja a végét*/
-komplex hatvany(komplex alap, int kitevo){
-    komplex visszaszam;
-    visszaszam.fi = alap.fi * kitevo;
+komplex_trig hatvany(komplex *alap, int kitevo){
+    komplex_trig visszaszam;
+    visszaszam.fi = alap->fi * kitevo;
     double hatvany;
     while (kitevo != 0){
-        hatvany *= alap.r;
+        hatvany *= alap->r;
         kitevo--;
     }
     visszaszam.r = hatvany;
