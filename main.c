@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 #include "beolvasas.h"
-//#include "muveletek.h"
+#include "muveletek.h"
 #include "debugmalloc.h"
 
 int main(){

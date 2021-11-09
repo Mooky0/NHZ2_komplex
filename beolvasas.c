@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #include "beolvasas.h"
-//#include "muveletek.h"
+#include "muveletek.h"
 #include "debugmalloc.h"
 
 komplex *hozzafuz(komplex *fej, double r, double fi){
@@ -81,11 +81,11 @@ void beolvasas(komplex **fej){
 
 }
 
-/*Pointerként kapott char-t alakít át nagybetűssé, ha kisbetű, ha bármi mi más
-* a kapott pointerbe visszaadja ugyan az.*/
-void nagybetube(char *c){
-    if (*c >= 'a' && *c <= 'z')
-        *c = *c - ('a' - 'A');
-    else
-        *c = *c;
-}
+// /*Pointerként kapott char-t alakít át nagybetűssé, ha kisbetű, ha bármi mi más
+// * a kapott pointerbe visszaadja ugyan az.*/
+// void nagybetube(char *c){
+//     if (*c >= 'a' && *c <= 'z')
+//         *c = *c - ('a' - 'A');
+//     else
+//         *c = *c;
+// }

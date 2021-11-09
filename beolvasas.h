@@ -8,6 +8,11 @@ typedef struct komplex_algebrai{
     double Re, Im;
 } komplex_algebrai;
 
+typedef struct komplex_trig{
+    int az;
+    double r, fi;
+} komplex_trig;
+
 // typedef struct komplex{
 //     int az;
 //     double r, fi; //Első körben fokban tárolom a szöget, utána lehet váltani kell radiánra.
@@ -28,6 +33,6 @@ typedef struct komplex{
 
 void beolvasas(komplex **fej);
 void felszabadit(komplex *fej);
-void nagybetube(char *c);
+//void nagybetube(char *c);
 
 #endif
