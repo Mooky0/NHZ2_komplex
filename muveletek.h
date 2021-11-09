@@ -13,6 +13,7 @@
 
 
 void nagybetube(char *c);
+void muvelet(komplex **fej);
 
 
 #endif

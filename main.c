@@ -23,7 +23,8 @@ int main(){
         case 'O':
         case 'M':
             /* TODO Ide jön a műveletes rész*/
-            printf("Opcio meg nem letezik(O/M)");
+            muvelet(&fej);
+            //printf("Opcio meg nem letezik(O/M)");
             break;
         case 'D':
         case 'A':

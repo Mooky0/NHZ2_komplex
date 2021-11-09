@@ -96,3 +96,17 @@ komplex_trig hatvany(komplex *alap, int kitevo){
     visszaszam.r = hatvany;
     return visszaszam;
 }
+
+void muvelet(komplex **fej){
+    char muvelet[4];
+    int arg1, arg2;
+    printf("Muvelet vegrehajtasa.\nMuvelet harombetus kodja majd a ket argumentum:\n[ADD szam1 szam2]\t\t- osszeadas\n[SUB kisebbitendo kivonando]\t- kivonas\n"
+    "[MUL szam1 szam2]\t\t- szorzas\n[DIV osztando oszto]\t\t- osztas\n[POW szam kitevo]\t\t- egesz hatvanyra emeles\n[CON szam alak(T/A)]\t\t- alakban kiiras.");
+    printf("\nAdd meg a muveletet es  az argumentumokat: ");
+    scanf(" %s %x %x", &muvelet, &arg1, &arg2);
+    switch (muvelet){
+    case "ADD":
+
+        break;
+    }
+}
