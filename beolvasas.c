@@ -23,14 +23,15 @@ komplex *hozzafuz(komplex *fej, double r, double fi){
 
     else {
         komplex *mozgo = fej;
-        //int utolsoaz = 0x1a1;
+        int utolsoaz = mozgo->az;
         while (mozgo->kov != NULL){
-            //utolsoaz = utolsoaz+1;
             mozgo = mozgo->kov;
+            utolsoaz = mozgo->az;
         }
-        //uj->az = utolsoaz;
+        uj->az = utolsoaz+1;
         mozgo->kov = uj;
     }
+    return fej;
 }
 
 void kiir(komplex *fej){
