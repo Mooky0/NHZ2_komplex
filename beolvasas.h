@@ -24,6 +24,8 @@ typedef struct komplex_trig{
 //     komplex *adat;
 // } DinTomb;
 
+
+//struktúra amelyben linked list-ben táoljuk a számokat.
 typedef struct komplex{
     int az;
     double r, fi;

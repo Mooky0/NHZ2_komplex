@@ -24,7 +24,7 @@ komplex_trig algebrai_to_trig(komplex_algebrai alg){
     komplex_trig trig;
     trig.r = sqrt(alg.Re*alg.Re + alg.Im * alg.Im);
     trig.fi = (atan(alg.Im / alg.Im) * 180) / M_PI;
-    trig.az = alg.Im;
+    trig.az = alg.az;
     return trig;
 
 }
@@ -103,10 +103,5 @@ void muvelet(komplex **fej){
     printf("Muvelet vegrehajtasa.\nMuvelet harombetus kodja majd a ket argumentum:\n[ADD szam1 szam2]\t\t- osszeadas\n[SUB kisebbitendo kivonando]\t- kivonas\n"
     "[MUL szam1 szam2]\t\t- szorzas\n[DIV osztando oszto]\t\t- osztas\n[POW szam kitevo]\t\t- egesz hatvanyra emeles\n[CON szam alak(T/A)]\t\t- alakban kiiras.");
     printf("\nAdd meg a muveletet es  az argumentumokat: ");
-    scanf(" %s %x %x", &muvelet, &arg1, &arg2);
-    switch (muvelet){
-    case "ADD":
-
-        break;
-    }
+    scanf(" %s %x %x", &muvelet, &arg1, &arg2);    
 }

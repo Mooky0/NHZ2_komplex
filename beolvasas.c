@@ -64,6 +64,8 @@ void beolvasas(komplex **fej){
         scanf("%lf", &szam.Re);
         printf("Szam kepzetes resze: ");
         scanf("%lf", &szam.Im);
+        komplex_trig ujszam = algebrai_to_trig(szam);
+        *fej = hozzafuz(*fej, ujszam.r, ujszam.fi);
         //komplex kompszam = algebrai_to_trig(&szam);
     }
     else if (alak == 'T'){
@@ -72,12 +74,9 @@ void beolvasas(komplex **fej){
         scanf("%lf", &r);
         printf("A szam argumentumszoge: ");
         scanf("%lf", &fi);
-        printf("itt meg\n");
         *fej = hozzafuz(*fej, r, fi);
-        printf("beiras jo\n");
-        kiir(*fej);
     }
-    printf("Beolvasas sikerer");
+    kiir(*fej);
 
 }
 
