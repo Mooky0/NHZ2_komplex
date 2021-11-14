@@ -2,6 +2,8 @@
 #include <stdio.h>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <string.h>
+
 
 #include "beolvasas.h"
 #include "muveletek.h"
@@ -23,7 +25,7 @@ void nagybetube(char *c){
 komplex_trig algebrai_to_trig(komplex_algebrai alg){
     komplex_trig trig;
     trig.r = sqrt(alg.Re*alg.Re + alg.Im * alg.Im);
-    trig.fi = (atan(alg.Im / alg.Im) * 180) / M_PI;
+    trig.fi = atanl(alg.Im/alg.Re) * 180 / M_PI;
     trig.az = alg.az;
     return trig;
 
@@ -36,7 +38,7 @@ komplex_trig algebrai_to_trig(komplex_algebrai alg){
 komplex_algebrai trig_to_alg(komplex *trig){
     komplex_algebrai alg;
     alg.Re = trig->r * cos((trig->fi * M_PI) / 180);
-    alg.Im = trig->r * sin((trig->fi * M_PI) / 180);
+    alg.Im = trig->r * sin(trig->fi * M_PI / 180);
     alg.az = trig->az;
     return alg;
 }
@@ -99,9 +101,53 @@ komplex_trig hatvany(komplex *alap, int kitevo){
 
 void muvelet(komplex **fej){
     char muvelet[4];
-    int arg1, arg2;
+    char arg1[4], arg2[4];
     printf("Muvelet vegrehajtasa.\nMuvelet harombetus kodja majd a ket argumentum:\n[ADD szam1 szam2]\t\t- osszeadas\n[SUB kisebbitendo kivonando]\t- kivonas\n"
     "[MUL szam1 szam2]\t\t- szorzas\n[DIV osztando oszto]\t\t- osztas\n[POW szam kitevo]\t\t- egesz hatvanyra emeles\n[CON szam alak(T/A)]\t\t- alakban kiiras.");
     printf("\nAdd meg a muveletet es  az argumentumokat: ");
-    scanf(" %s %x %x", &muvelet, &arg1, &arg2);    
+    scanf(" %s %s %s", &muvelet, &arg1, &arg2);
+    
+    komplex *szam1;
+    int az1;
+    az1 = (int)strtol(arg1, NULL, 16);
+    komplex *mozgo = *fej;
+    while (mozgo != NULL){
+        if (mozgo->az == az1){
+                szam1 = mozgo;
+                mozgo = NULL;
+        }
+        mozgo = (mozgo == NULL) ? NULL : mozgo->kov;
+    }
+
+    komplex *szam2;
+    /*megnézzük, hogy a művelet ADD/SUB/MUL/DIV mert akkor mindkettő számot ki kell keresni*/
+    if (strcmp(muvelet, "ADD") == 0 || muvelet == "SUB" || muvelet == "MUl" || muvelet == "DIV"){
+        int az2;
+        az2 = (int) strtol(arg2, NULL, 16);
+        komplex *mozgo = *fej;
+        while (mozgo != NULL){
+            if (mozgo->az == az1){
+                szam2 = mozgo;
+                mozgo = NULL;
+            }
+            mozgo = (mozgo == NULL) ? NULL : mozgo->kov;
+        }        
+    }
+
+    if (strcmp(muvelet, "ADD") == 0){
+        komplex_trig szam;
+        szam = osszead(szam1, szam2);
+        *fej = hozzafuz(*fej, szam.r, szam.fi);
+        kiir(*fej);
+    } else if (muvelet == "SUB"){
+
+    } else if (muvelet == "MUL"){
+        
+    } else if (muvelet == "DIV"){
+
+    } else if (muvelet == "POW"){
+
+    } else if (muvelet == "CON"){
+
+    }
 }
