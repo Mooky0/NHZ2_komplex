@@ -7,6 +7,7 @@
 
 #include "beolvasas.h"
 #include "muveletek.h"
+//#include "debuggmalloc.h"
 
 
 /*Pointerként kapott char-t alakít át nagybetűssé, ha kisbetű, ha bármi mi más

@@ -4,7 +4,7 @@
 #include "beolvasas.h"
 #include "muveletek.h"
 #include "filekezeles.h"
-#include "debugmalloc.h"
+//#include "debugmalloc.h"
 
 int main(){
 	char opcio;

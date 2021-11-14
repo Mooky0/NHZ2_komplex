@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "debugmalloc.h"
+//#include "debugmalloc.h"
 #include "beolvasas.h"
 #include "filekezeles.h"
 #include "muveletek.h"

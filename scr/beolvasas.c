@@ -5,7 +5,7 @@
 #include "beolvasas.h"
 #include "muveletek.h"
 #include "filekezeles.h"
-#include "debugmalloc.h"
+//#include "debugmalloc.h"
 
 komplex *hozzafuz(komplex *fej, double r, double fi){
     komplex *uj;
