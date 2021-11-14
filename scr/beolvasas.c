@@ -4,6 +4,7 @@
 
 #include "beolvasas.h"
 #include "muveletek.h"
+#include "filekezeles.h"
 #include "debugmalloc.h"
 
 komplex *hozzafuz(komplex *fej, double r, double fi){
@@ -53,8 +54,8 @@ void felszabadit(komplex *fej){
 }
 
 void beolvasas(komplex **fej){
-    printf("Milyen alakban szeretnél beolvasni?\n"
-    "[A]lgebrai vagy [T]riginometriai?\n");
+    printf("Milyen alakban szeretnél beolvasni, vagy File-bol?\n"
+    "[A]lgebrai, [T]riginometriai avgy [F]ile?\n");
     char alak;
     scanf(" %c", &alak);
     nagybetube(&alak);
@@ -75,6 +76,9 @@ void beolvasas(komplex **fej){
         printf("A szam argumentumszoge: ");
         scanf("%lf", &fi);
         *fej = hozzafuz(*fej, r, fi);
+    }
+    else if (alak == 'F'){
+        filebeolvas(&*fej);
     }
     kiir(*fej);
 

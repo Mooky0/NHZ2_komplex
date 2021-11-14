@@ -3,6 +3,7 @@
 
 #include "beolvasas.h"
 #include "muveletek.h"
+#include "filekezeles.h"
 #include "debugmalloc.h"
 
 int main(){
@@ -33,7 +34,8 @@ int main(){
             break;
         case 'S':
             /* TODO mentes txt-be*/
-            printf("Opcio meg nem letezik(S)");
+            printf("%s", mentes(fej) ? "Sikeres filekiiras" : "sikertelen filekiiras");
+            //printf("Opcio meg nem letezik(S)");
             break;
         default:
             printf("Ismeretlen input");
