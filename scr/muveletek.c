@@ -121,7 +121,7 @@ void muvelet(komplex **fej){
 
     komplex *szam2;
     /*megnézzük, hogy a művelet ADD/SUB/MUL/DIV mert akkor mindkettő számot ki kell keresni*/
-    if (strcmp(muvelet, "ADD") == 0 || muvelet == "SUB" || muvelet == "MUl" || muvelet == "DIV"){
+    if (strcmp(muvelet, "ADD") == 0 || strcmp(muvelet, "SUB") == 0 || strcmp(muvelet, "MUL") == 0 || strcmp(muvelet, "DIV") == 0){
         int az2;
         az2 = (int) strtol(arg2, NULL, 16);
         komplex *mozgo = *fej;
@@ -134,20 +134,36 @@ void muvelet(komplex **fej){
         }        
     }
 
+    komplex_trig szam;
     if (strcmp(muvelet, "ADD") == 0){
-        komplex_trig szam;
         szam = osszead(szam1, szam2);
         *fej = hozzafuz(*fej, szam.r, szam.fi);
-        kiir(*fej);
-    } else if (muvelet == "SUB"){
-
-    } else if (muvelet == "MUL"){
-        
-    } else if (muvelet == "DIV"){
-
-    } else if (muvelet == "POW"){
-
-    } else if (muvelet == "CON"){
-
-    }
+        kiirutolso(*fej);
+    } else if (strcmp(muvelet, "SUB") == 0){
+        szam = kivon(szam1, szam2);
+        *fej = hozzafuz(*fej, szam.r, szam.fi);
+        kiirutolso(*fej);
+    } else if (strcmp(muvelet, "MUL") == 0){
+        szam = szorzas(szam1, szam2);
+        *fej = hozzafuz(*fej, szam.r, szam.fi);
+        kiirutolso(*fej);
+    } else if (strcmp(muvelet, "DIV") == 0){
+        szam = kivon(szam1, szam2);
+        *fej = hozzafuz(*fej, szam.r, szam.fi);
+        kiirutolso(*fej);
+    } else if (strcmp(muvelet, "POW") == 0){
+        int kitevo = (int)strtol(arg1, NULL, 10);
+        szam = hatvany(szam1, kitevo);
+        *fej = hozzafuz(*fej, szam.r, szam.fi);
+        kiirutolso(*fej);
+    } else if (strcmp(muvelet, "CON") == 0){
+        if (arg2[0] == 'T'){
+            printf("%x: Hossz: %f, Szog: %f\n", szam1->az, szam1->r, szam1->fi);
+        }
+        else if (arg2[0] == 'A'){
+            komplex_algebrai szam_alg = trig_to_alg(szam1);
+            printf("%x: Re:%f, Im:%f\n", szam_alg.az, szam_alg.Re, szam_alg.Im);
+        }
+    } else
+        perror("Ismertlen muvelet");
 }

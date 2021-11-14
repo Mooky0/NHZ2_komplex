@@ -44,6 +44,14 @@ void kiir(komplex *fej){
     }
 }
 
+void kiirutolso(komplex *fej){
+    komplex *mozgo = fej;
+    while(mozgo->kov != NULL){
+        mozgo = mozgo->kov;
+    }
+    printf("%x: Hossz: %f, Szog: %f\n", mozgo->az, mozgo->r, mozgo->fi);
+}
+
 void felszabadit(komplex *fej){
     komplex *iter = fej;
     while (iter != NULL) {

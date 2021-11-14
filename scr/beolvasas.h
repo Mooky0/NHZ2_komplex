@@ -38,5 +38,6 @@ void felszabadit(komplex *fej);
 //void nagybetube(char *c);
 komplex *hozzafuz(komplex *fej, double r, double fi);
 void kiir(komplex *fej);
+void kiirutolso(komplex *fej);
 
 #endif

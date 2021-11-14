@@ -17,25 +17,18 @@ int main(){
     while(opcio != 'Q'){
         switch (opcio){
         case 'I':
-            /* TODO Ide jön a beolvasás*/
             beolvasas(&fej);
-            //printf("Opcio meg nem letezik(I)");
             break;
         case 'O':
         case 'M':
-            /* TODO Ide jön a műveletes rész*/
             muvelet(&fej);
-            //printf("Opcio meg nem letezik(O/M)");
             break;
         case 'D':
         case 'A':
-            /* TODO ábrázolás rész*/
             printf("Opcio meg nem letezik(D/A)");
             break;
         case 'S':
-            /* TODO mentes txt-be*/
             printf("%s", mentes(fej) ? "Sikeres filekiiras" : "sikertelen filekiiras");
-            //printf("Opcio meg nem letezik(S)");
             break;
         default:
             printf("Ismeretlen input");
