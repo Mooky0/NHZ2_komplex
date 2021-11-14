@@ -74,8 +74,8 @@ szám hosszát és argumentumszögét, ha a kért alak az algebrai alak akkor a 
 képzetes részt. Az S betű hatására a program a szamok.txt-t felülírja és elmenti az aktuálisan 
 tárolt számokat, ennek sikerességéről tájékoztat. A Q betű után a program kilép. 
 ### Programozói dokumentáció 
-A program 4 forrásfáljból dolgozik (`main.c, beolvasas.c, muveletek.c, 
-filekezeles.c`) . A programnak egy fordítóra (compiler, elsősorban gcc) a szabványos 
+A program 4 forrásfáljból dolgozik (`main.c`, `beolvasas.c`, `muveletek.c`,
+`filekezeles.c`) . A programnak egy fordítóra (compiler, elsősorban gcc) a szabványos 
 könyvrakra (stdio.h, math.h, stdlib.h, string.h, stdbool.h) és a saját forrásfáljaira van szüksége. 
 A fordítás gcc-vel parancssorból:
 ```
