@@ -56,5 +56,5 @@ dkms.conf
 tictactoe/
 .vscode/
 test*.*
-scr/*.txt
+src/*.txt
 # beolvasas.*
