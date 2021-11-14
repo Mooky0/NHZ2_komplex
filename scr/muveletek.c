@@ -18,10 +18,6 @@ void nagybetube(char *c){
         *c = *c;
 }
 
-
-/*komplex számokat alakít át algebrai alakból, trigonometraiba (ami itt egyenértékű
- * az exponenciálissal). Pointerből dolgozik, trig alakkal tér vissza.
- * A szög fokban értendő, később szintén válozni fog.*/
 komplex_trig algebrai_to_trig(komplex_algebrai alg){
     komplex_trig trig;
     trig.r = sqrt(alg.Re*alg.Re + alg.Im * alg.Im);
@@ -31,10 +27,6 @@ komplex_trig algebrai_to_trig(komplex_algebrai alg){
 
 }
 
-/*komplex számok trigonometriai (ami itt egyenérékű az exponenciális alakkkal) alakból alakít áti
- * alegbrai alakba. Egyenlőre pointerekkel dolgozik, mert az fun, de túl bonyinak tűnik...
- * majd át kell alakítani, hogy rendesn stack-en dolgozzon, return value-vel.
- * A szög fokban értendő, később szintén válozni fog.*/
 komplex_algebrai trig_to_alg(komplex *trig){
     komplex_algebrai alg;
     alg.Re = trig->r * cos((trig->fi * M_PI) / 180);
@@ -43,8 +35,7 @@ komplex_algebrai trig_to_alg(komplex *trig){
     return alg;
 }
 
-/*Összead kettő komplex számot algebrai alakban, és algebrai alakban tér vissza
- * nincs kezelve az eset amikor az szám nem valós szám, később tervezem kezelni.*/
+
 komplex_trig osszead(komplex *szam1_trig, komplex *szam2_trig){
 	komplex_trig visszaszam;
     komplex_algebrai temp;
@@ -58,7 +49,7 @@ komplex_trig osszead(komplex *szam1_trig, komplex *szam2_trig){
 
 }
 
-/*Kivon kettő komplex számot algebrai alakban, és algebrai alakban tér vissza*/
+
 komplex_trig kivon(komplex *szam1, komplex *szam2){
     komplex_trig visszaszam;   
     komplex_algebrai temp;
@@ -70,7 +61,7 @@ komplex_trig kivon(komplex *szam1, komplex *szam2){
     return visszaszam;
 }
 
-/*komplex számokat szoroz össze trig alakban, azzal is tér vissza*/
+
 komplex_trig szorzas(komplex *szam1, komplex *szam2){
     komplex_trig visszaszam;
     visszaszam.r = szam1->r * szam2->r;
@@ -78,7 +69,7 @@ komplex_trig szorzas(komplex *szam1, komplex *szam2){
     return visszaszam;
 }
 
-/*komplex számokat oszt egymással trig alakban, azzal is tér vissza*/
+
 komplex_trig osztas(komplex *osztando, komplex *oszto){
     komplex_trig visszaszam;
     visszaszam.r = osztando->r / oszto->r;
@@ -86,7 +77,7 @@ komplex_trig osztas(komplex *osztando, komplex *oszto){
     return visszaszam;
 }
 
-/*komplex szam egész hatványát számolja, ha nem egész akkor típuskonverzióval levágja a végét*/
+
 komplex_trig hatvany(komplex *alap, int kitevo){
     komplex_trig visszaszam;
     visszaszam.fi = alap->fi * kitevo;
