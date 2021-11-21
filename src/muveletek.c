@@ -100,34 +100,49 @@ void muvelet(komplex **fej){
     scanf(" %s %s %s", &muvelet, &arg1, &arg2);
     
     komplex *szam1;
+    char *temp;
     int az1;
-    az1 = (int)strtol(arg1, NULL, 16);
+    az1 = (int)strtol(arg1, &temp, 16);
+    if (*temp != '\0'){
+        printf("Nem hexadecimálisan adta meg az azonosítót.");
+        return;
+    }
     komplex *mozgo = *fej;
     while (mozgo != NULL){
         if (mozgo->az == az1){
                 szam1 = mozgo;
-                mozgo = NULL;
+                mozgo = NULL; //cuklus megtöréséhez kell, ezért kell utána a feltételes assignment
         }
         mozgo = (mozgo == NULL) ? NULL : mozgo->kov;
     }
+    if (szam1 == NULL)
+        perror("Nincs ilyen azonositoju szám menteve");
 
     komplex *szam2;
     /*megnézzük, hogy a művelet ADD/SUB/MUL/DIV mert akkor mindkettő számot ki kell keresni*/
     if (strcmp(muvelet, "ADD") == 0 || strcmp(muvelet, "SUB") == 0 || strcmp(muvelet, "MUL") == 0 || strcmp(muvelet, "DIV") == 0){
         int az2;
-        az2 = (int) strtol(arg2, NULL, 16);
+        az2 = (int) strtol(arg2, &temp, 16);
+        if (*temp != '\0'){
+            printf("Nem hexadecimálisan adta meg az azonosítót.");
+            return;
+        }
         komplex *mozgo = *fej;
         while (mozgo != NULL){
-            if (mozgo->az == az1){
+            if (mozgo->az == az2){
                 szam2 = mozgo;
-                mozgo = NULL;
+                mozgo = NULL; //cuklus megtöréséhez kell, ezért kell utána a feltételes assignment
             }
             mozgo = (mozgo == NULL) ? NULL : mozgo->kov;
-        }        
+            //mozgo = mozgo->kov;
+        }
+        //printf("%x", szam2->az);
+        //perror("Nincs ilyen azonositoju szám menteve");
     }
 
     komplex_trig szam;
     if (strcmp(muvelet, "ADD") == 0){
+        printf("elso az: %x, masodik az: %x\n", szam1->az, szam2->az);
         szam = osszead(szam1, szam2);
         *fej = hozzafuz(*fej, szam.r, szam.fi);
         kiirutolso(*fej);
