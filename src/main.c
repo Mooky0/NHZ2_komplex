@@ -25,10 +25,11 @@ int main(){
             break;
         case 'D':
         case 'A':
-            printf("Opcio meg nem letezik(D/A)");
+            printf("%s", abrazol(fej) ? "Sikeres abrazolas" : "Sikertelen abrazolas");
+            //printf("Opcio meg nem letezik(D/A)");
             break;
         case 'S':
-            printf("%s", mentes(fej) ? "Sikeres filekiiras" : "sikertelen filekiiras");
+            printf("%s", mentes(fej) ? "Sikeres filekiiras" : "Sikertelen filekiiras");
             break;
         default:
             printf("Ismeretlen input");

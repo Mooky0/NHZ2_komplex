@@ -1,0 +1,15 @@
+<svg width='600' height='600' xmlns='http://www.w3.org/2000/svg' version='1.1'>
+<line style="stroke:#000000;" x1="300" y1="0" x2="300" y2="600" />
+<line style="stroke:#000000;" x1="0" y1="300" x2="600" y2="300" />
+<text x="301" y="310" font-size="10">Origo</text>
+<text x="580" y="310" font-size="10">Re</text>
+<text x="301" y="10" font-size="10">Im</text>
+
+<line style="stroke:#FF0000;" x1="360" y1="295" x2="360" y2="305"/>
+<text x="358" y="315" font-size="8">1</text>
+
+
+<line style="stroke:#FF0000;" x1="295" y1="240" x2="305" y2="240"/>
+<text x="289" y="243" font-size="8">1</text>
+
+</svg>

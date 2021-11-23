@@ -52,10 +52,23 @@ bool filebeolvas(komplex **fej){
             perror("Hibas file, alak hiba, szam atugrasa");
         }
     }
+    fclose(fp);
     //kiir(*fej);
     return true;
 }
 
 bool abrazol(komplex *fej){
-    
+    FILE *fp;
+    fp = fopen("szamsik.svg", "w");
+    if (fp == NULL){
+        perror("Nem sikerult megnyitni/letrehozni a file-t");
+        return false;
+    }
+    fprintf(fp, "<svg width='200' height='200' xmlns='http://www.w3.org/2000/svg' version='1.1'>\n");
+
+    /*kód*/
+
+    fprintf(fp, "\n</svg>");
+    fclose(fp);
+    return true;
 }
