@@ -64,9 +64,29 @@ bool abrazol(komplex *fej){
         perror("Nem sikerult megnyitni/letrehozni a file-t");
         return false;
     }
-    fprintf(fp, "<svg width='200' height='200' xmlns='http://www.w3.org/2000/svg' version='1.1'>\n");
 
-    /*kód*/
+    /*Alap számsík rajzolása*/
+    fprintf(fp, "<svg width='600' height='600' xmlns='http://www.w3.org/2000/svg' version='1.1'>\n<line style=\"stroke:#000000;\" x1=\"300\" y1=\"0\" x2=\"300\" y2=\"600\" />\n<line style=\"stroke:#000000;\" x1=\"0\" y1=\"300\" x2=\"600\" y2=\"300\" />\n<text x=\"301\" y=\"310\" font-size=\"10\">Origo</text>\n<text x=\"580\" y=\"310\" font-size=\"10\">Re</text>\n<text x=\"301\" y=\"10\" font-size=\"10\">Im</text>\n");
+
+    for (int i=1; i<10; i++){
+        fprintf(fp, "<line style=\"stroke:#FF0000;\" x1=\"%d\" y1=\"295\" x2=\"%d\" y2=\"305\"/>\n<text x=\"%d\" y=\"315\" font-size=\"8\">%d</text>\n", (300 + i * 30), (300 + i * 30), (298 + i * 30), i);
+    }
+
+    for (int i=1; i<10; i++){
+        fprintf(fp, "<line style=\"stroke:#FF0000;\" x1=\"295\" y1=\"%d\" x2=\"305\" y2=\"%d\"/>\n<text x=\"289\" y=\"%d\" font-size=\"8\">%d</text>\n", (300 - i * 30), (300 - i * 30), (302 - i * 30), i);
+    }
+
+    /*számok ábrázolása, algebrai alakba alakítás és ábrázolás*/
+    komplex *mozgo = fej;
+    while (mozgo != NULL){
+        komplex_algebrai szam = trig_to_alg(mozgo);
+        double x = (szam.Im * 30) + 300;
+        double y = 300 - (szam.Re * 30);
+        fprintf(fp, "<line style=\"stroke:#d14508;\" x1=\"300\" y1=\"300\" x2=\"%f\" y2=\"%f\"/>\n", x, y);
+        fprintf(fp, "<text x=\"%f\" y=\"%f\" font-size=\"8\">%x</text>\n    ", x, y, szam.az);
+        mozgo = mozgo->kov;
+    }
+
 
     fprintf(fp, "\n</svg>");
     fclose(fp);
