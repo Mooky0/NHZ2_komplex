@@ -107,17 +107,14 @@ void muvelet(komplex **fej){
         return;
     }
     komplex *mozgo = *fej;
-    while (mozgo != NULL){
-        if (mozgo->az == az1){
-                szam1 = mozgo;
-                mozgo = NULL; //cuklus megtöréséhez kell, ezért kell utána a feltételes assignment
-        }
-        mozgo = (mozgo == NULL) ? NULL : mozgo->kov;
+    while (mozgo != NULL && mozgo->az != az1){
+        mozgo = mozgo->kov;
     }
     if (mozgo == NULL){
         perror("Nincs ilyen azonositoju szám menteve");
         return;
     }
+    szam1 = mozgo;
 
     komplex *szam2;
     /*megnézzük, hogy a művelet ADD/SUB/MUL/DIV mert akkor mindkettő számot ki kell keresni*/
@@ -129,18 +126,14 @@ void muvelet(komplex **fej){
             return;
         }
         komplex *mozgo = *fej;
-        while (mozgo != NULL){
-            if (mozgo->az == az2){
-                szam2 = mozgo;
-                mozgo = NULL; //cuklus megtöréséhez kell, ezért kell utána a feltételes assignment
-            }
-            mozgo = (mozgo == NULL) ? NULL : mozgo->kov;
-            //mozgo = mozgo->kov;
+        while (mozgo != NULL && mozgo->az != az2){
+            mozgo = mozgo->kov;
         }
         if(mozgo == NULL){
             perror("Nincs a listaban ilyen azonositoju szam.");
             return;
         }
+        szam2 = mozgo;
     }
 
     komplex_trig szam;
