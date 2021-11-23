@@ -55,8 +55,8 @@ komplex_trig kivon(komplex *szam1, komplex *szam2){
     komplex_algebrai temp;
     komplex_algebrai kisebbitendo = trig_to_alg(szam1);
     komplex_algebrai kivonando = trig_to_alg(szam2);
-	temp.Re = kisebbitendo.Re + kivonando.Re;
-	temp.Im = kisebbitendo.Im + kivonando.Im;
+	temp.Re = kisebbitendo.Re - kivonando.Re;
+	temp.Im = kisebbitendo.Im - kivonando.Im;
     visszaszam = algebrai_to_trig(temp);
     return visszaszam;
 }
@@ -80,9 +80,10 @@ komplex_trig osztas(komplex *osztando, komplex *oszto){
 
 komplex_trig hatvany(komplex *alap, int kitevo){
     komplex_trig visszaszam;
-    visszaszam.fi = alap->fi * kitevo;
-    double hatvany;
-    while (kitevo != 0){
+    printf("%d\n", kitevo);
+    visszaszam.fi = kitevo * alap->fi;
+    double hatvany = alap->r;
+    while (kitevo != 1){
         hatvany *= alap->r;
         kitevo--;
     }
@@ -97,7 +98,7 @@ void muvelet(komplex **fej){
     "[MUL szam1 szam2]\t\t- szorzas\n[DIV osztando oszto]\t\t- osztas\n[POW szam kitevo]\t\t- egesz hatvanyra emeles\n[CON szam alak(T/A)]\t\t- alakban kiiras.");
     printf("\nAdd meg a muveletet es  az argumentumokat: ");
     scanf(" %s %s %s", &muvelet, &arg1, &arg2);
-    
+
     komplex *szam1;
     char *temp;
     int az1;
@@ -151,11 +152,11 @@ void muvelet(komplex **fej){
         *fej = hozzafuz(*fej, szam.r, szam.fi);
         kiirutolso(*fej);
     } else if (strcmp(muvelet, "DIV") == 0){
-        szam = kivon(szam1, szam2);
+        szam = osztas(szam1, szam2);
         *fej = hozzafuz(*fej, szam.r, szam.fi);
         kiirutolso(*fej);
     } else if (strcmp(muvelet, "POW") == 0){
-        int kitevo = (int)strtol(arg1, NULL, 10);
+        int kitevo = (int)strtol(arg2, NULL, 10);
         szam = hatvany(szam1, kitevo);
         *fej = hozzafuz(*fej, szam.r, szam.fi);
         kiirutolso(*fej);

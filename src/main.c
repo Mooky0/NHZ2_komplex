@@ -10,7 +10,7 @@ int main(){
 	char opcio;
     komplex *fej = NULL;
     printf("Ez egy komplex szamologep, komplex szamokat lehet beolvasni, eltarolni es szamolni veluk\n"
-    "Az ociok:\n[I] - Beolvasas\n[O/M] - Muveletvegzes(szamolas)\n[D/A] - Abrazolas (svg file-ba)\n[S] - mentes txt-be\n[Q] - kilepes\n");
+    "Az ociok:\n[I] - Beolvasas (Input)\n[O/M] - Muveletvegzes(szamolas, operation)\n[D/A] - Abrazolas (svg file-ba, draw)\n[S] - mentes txt-be (save)\n[P/K] - Kiiras console-ra (print)\n[Q] - kilepes (Quit)\n");
     printf("OCIO: ");
     scanf(" %c", &opcio);
     nagybetube(&opcio);
@@ -30,6 +30,10 @@ int main(){
             break;
         case 'S':
             printf("%s", mentes(fej) ? "Sikeres filekiiras" : "Sikertelen filekiiras");
+            break;
+        case 'P':
+        case 'K':
+            kiir(fej);
             break;
         default:
             printf("Ismeretlen input");
