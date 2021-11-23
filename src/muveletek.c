@@ -7,8 +7,7 @@
 
 #include "beolvasas.h"
 #include "muveletek.h"
-//#include "debuggmalloc.h"
-
+//#include "debugmalloc.h"
 
 /*Pointerként kapott char-t alakít át nagybetűssé, ha kisbetű, ha bármi mi más
 * a kapott pointerbe visszaadja ugyan az.*/
@@ -115,8 +114,10 @@ void muvelet(komplex **fej){
         }
         mozgo = (mozgo == NULL) ? NULL : mozgo->kov;
     }
-    if (szam1 == NULL)
+    if (mozgo == NULL){
         perror("Nincs ilyen azonositoju szám menteve");
+        return;
+    }
 
     komplex *szam2;
     /*megnézzük, hogy a művelet ADD/SUB/MUL/DIV mert akkor mindkettő számot ki kell keresni*/
@@ -136,8 +137,10 @@ void muvelet(komplex **fej){
             mozgo = (mozgo == NULL) ? NULL : mozgo->kov;
             //mozgo = mozgo->kov;
         }
-        //printf("%x", szam2->az);
-        //perror("Nincs ilyen azonositoju szám menteve");
+        if(mozgo == NULL){
+            perror("Nincs a listaban ilyen azonositoju szam.");
+            return;
+        }
     }
 
     komplex_trig szam;

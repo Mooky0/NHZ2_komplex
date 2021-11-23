@@ -3,5 +3,6 @@
 
 bool mentes(komplex *fej);
 bool filebeolvas(komplex **fej);
+bool abrazol(komplex *fej);
 
 #endif

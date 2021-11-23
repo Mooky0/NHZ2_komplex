@@ -55,3 +55,7 @@ bool filebeolvas(komplex **fej){
     //kiir(*fej);
     return true;
 }
+
+bool abrazol(komplex *fej){
+    
+}
