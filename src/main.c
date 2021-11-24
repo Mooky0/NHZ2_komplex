@@ -9,10 +9,13 @@
 int main(){
 	char opcio;
     komplex *fej = NULL;
+    komplex *ans = NULL;
     printf("Ez egy komplex szamologep, komplex szamokat lehet beolvasni, eltarolni es szamolni veluk\n"
     "Az ociok:\n[I] - Beolvasas (Input)\n[O/M] - Muveletvegzes(szamolas, operation)\n[D/A] - Abrazolas (svg file-ba, draw)\n[S] - mentes txt-be (save)\n[P/K] - Kiiras console-ra (print)\n[Q] - kilepes (Quit)\n");
-    printf("OCIO: ");
-    scanf(" %c", &opcio);
+    printf("OPCIO: ");
+    //scanf(" %c", &opcio);
+    opcio = getchar();
+    fflush(stdin);
     nagybetube(&opcio);
     while(opcio != 'Q'){
         switch (opcio){
@@ -21,7 +24,7 @@ int main(){
             break;
         case 'O':
         case 'M':
-            muvelet(&fej);
+            muvelet(&fej, &ans);
             break;
         case 'D':
         case 'A':
@@ -39,8 +42,10 @@ int main(){
             printf("Ismeretlen input");
             break;
         }
-        printf("\nOCIO: ");
-        scanf(" %c", &opcio);
+        printf("\nOPCIO: ");
+        //scanf(" %c", &opcio);
+        opcio = getchar();
+        fflush(stdin);
         nagybetube(&opcio);
         
 

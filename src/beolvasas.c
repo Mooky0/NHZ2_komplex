@@ -44,12 +44,13 @@ void kiir(komplex *fej){
     }
 }
 
-void kiirutolso(komplex *fej){
+komplex *kiirutolso(komplex *fej){
     komplex *mozgo = fej;
     while(mozgo->kov != NULL){
         mozgo = mozgo->kov;
     }
     printf("%x: Hossz: %f, Szog: %f\n", mozgo->az, mozgo->r, mozgo->fi);
+    return mozgo;
 }
 
 void felszabadit(komplex *fej){
@@ -66,10 +67,11 @@ void beolvasas(komplex **fej){
     "[A]lgebrai, [T]riginometriai avgy [F]ile?\n");
     char alak;
     scanf(" %c", &alak);
+    fflush(stdin);
     nagybetube(&alak);
     if (alak == 'A'){
         komplex_algebrai szam;
-        printf("Algebrai alak. Szam valas resze: ");
+        printf("Algebrai alak. Szam valos resze: ");
         scanf("%lf", &szam.Re);
         printf("Szam kepzetes resze: ");
         scanf("%lf", &szam.Im);
