@@ -66,8 +66,7 @@ void beolvasas(komplex **fej){
     printf("Milyen alakban szeretnél beolvasni, vagy File-bol?\n"
     "[A]lgebrai, [T]riginometriai avgy [F]ile?\n");
     char alak;
-    scanf(" %c", &alak);
-    fflush(stdin);
+    scanf(" %c%*[^\n]", &alak);
     nagybetube(&alak);
     if (alak == 'A'){
         komplex_algebrai szam;

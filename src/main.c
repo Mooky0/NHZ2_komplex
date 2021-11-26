@@ -14,8 +14,7 @@ int main(){
     "Az ociok:\n[I] - Beolvasas (Input)\n[O/M] - Muveletvegzes(szamolas, operation)\n[D/A] - Abrazolas (svg file-ba, draw)\n[S] - mentes txt-be (save)\n[P/K] - Kiiras console-ra (print)\n[Q] - kilepes (Quit)\n");
     printf("OPCIO: ");
     //scanf(" %c", &opcio);
-    opcio = getchar();
-    fflush(stdin);
+    scanf(" %c%*[^\n]", &opcio);
     nagybetube(&opcio);
     while(opcio != 'Q'){
         switch (opcio){
@@ -44,8 +43,7 @@ int main(){
         }
         printf("\nOPCIO: ");
         //scanf(" %c", &opcio);
-        opcio = getchar();
-        fflush(stdin);
+        scanf(" %c%*[^\n]", &opcio);
         nagybetube(&opcio);
         
 

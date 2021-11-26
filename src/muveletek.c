@@ -3,6 +3,7 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include <string.h>
+#include <ctype.h>
 
 
 #include "beolvasas.h"
@@ -12,10 +13,11 @@
 /*Pointerként kapott char-t alakít át nagybetűssé, ha kisbetű, ha bármi mi más
 * a kapott pointerbe visszaadja ugyan az.*/
 void nagybetube(char *c){
-    if (*c >= 'a' && *c <= 'z')
-        *c = *c - ('a' - 'A');
-    else
-        *c = *c;
+    int i = 0;
+    while (c[i] != '\0'){
+        c[i] = toupper(c[i]);
+        i++;
+    }
 }
 
 komplex_trig algebrai_to_trig(komplex_algebrai alg){
@@ -96,9 +98,10 @@ void muvelet(komplex **fej, komplex **ans){
     printf("Muvelet vegrehajtasa.\nMuvelet harombetus kodja majd a ket argumentum:\n[ADD szam1 szam2]\t\t- osszeadas\n[SUB kisebbitendo kivonando]\t- kivonas\n"
     "[MUL szam1 szam2]\t\t- szorzas\n[DIV osztando oszto]\t\t- osztas\n[POW szam kitevo]\t\t- egesz hatvanyra emeles\n[CON szam alak(T/A)]\t\t- alakban kiiras.");
     printf("\nAdd meg a muveletet es  az argumentumokat: ");
-    scanf(" %s %s %s", &muvelet, &arg1, &arg2);
-    fflush(stdin);
-
+    scanf(" %s %s %s%*[^\n]", &muvelet, &arg1, &arg2);
+    nagybetube(muvelet);
+    nagybetube(arg1);
+    nagybetube(arg2);
 
     komplex *szam1;
     if(strcmp(arg1, "ANS") == 0){
