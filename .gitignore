@@ -58,5 +58,7 @@ tictactoe/
 test*.*
 src/*.txt
 src/*.svg
-szamsik.svg
+src/szamsik.svg
+./src/*.svg
+*.svg
 # beolvasas.*
