@@ -5,7 +5,7 @@
 #include "beolvasas.h"
 #include "muveletek.h"
 #include "filekezeles.h"
-//#include "debugmalloc.h"
+#include "debugmalloc.h"
 
 /*Hozzáfüzés függvény:
 * Visszatérési érték: komplex pointer, azaz a fej, ami lehetséges, hogy változott,

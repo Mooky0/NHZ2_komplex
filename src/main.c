@@ -4,7 +4,7 @@
 #include "beolvasas.h"
 #include "muveletek.h"
 #include "filekezeles.h"
-//#include "debugmalloc.h"
+#include "debugmalloc.h"
 
 
 /*FŐMENÜ
@@ -18,9 +18,8 @@ int main(){
     komplex *fej = NULL;
     komplex *ans = NULL;
     printf("Ez egy komplex szamologep, komplex szamokat lehet beolvasni, eltarolni es szamolni veluk\n"
-    "Az ociok:\n[I] - Beolvasas (Input)\n[O/M] - Muveletvegzes(szamolas, operation)\n[D/A] - Abrazolas (svg file-ba, draw)\n[S] - mentes txt-be (save)\n[P/K] - Kiiras console-ra (print)\n[Q] - kilepes (Quit)\n");
+    "Az opciok:\n[I] - Beolvasas (Input)\n[O/M] - Muveletvegzes(szamolas, operation)\n[D/A] - Abrazolas (svg file-ba, draw)\n[S] - mentes txt-be (save)\n[P/K] - Kiiras console-ra (print)\n[Q] - kilepes (Quit)\n");
     printf("OPCIO: ");
-    //scanf(" %c", &opcio);
     scanf(" %c%*[^\n]", &opcio);
     nagybetube(&opcio);
     while(opcio != 'Q'){
@@ -35,7 +34,6 @@ int main(){
         case 'D':
         case 'A':
             printf("%s", abrazol(fej) ? "Sikeres abrazolas" : "Sikertelen abrazolas");
-            //printf("Opcio meg nem letezik(D/A)");
             break;
         case 'S':
             printf("%s", mentes(fej) ? "Sikeres filekiiras" : "Sikertelen filekiiras");
@@ -48,8 +46,9 @@ int main(){
             printf("Ismeretlen input");
             break;
         }
+        printf("Ez egy komplex szamologep, komplex szamokat lehet beolvasni, eltarolni es szamolni veluk\n"
+        "Az opciok:\n[I] - Beolvasas (Input)\n[O/M] - Muveletvegzes(szamolas, operation)\n[D/A] - Abrazolas (svg file-ba, draw)\n[S] - mentes txt-be (save)\n[P/K] - Kiiras console-ra (print)\n[Q] - kilepes (Quit)\n");
         printf("\nOPCIO: ");
-        //scanf(" %c", &opcio);
         scanf(" %c%*[^\n]", &opcio);
         nagybetube(&opcio);
         

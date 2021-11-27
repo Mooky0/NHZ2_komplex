@@ -8,7 +8,7 @@
 
 #include "beolvasas.h"
 #include "muveletek.h"
-//#include "debugmalloc.h"
+#include "debugmalloc.h"
 
 /*Pointerként kapott char-t, ami lehet str is alakít át nagybetűssé, ha kisbetű, ha bármi mi más
 * a kapott pointerbe visszaadja ugyan azt. A függvényt más modulok is használják*/
@@ -119,7 +119,7 @@ void muvelet(komplex **fej, komplex **ans){
     char muvelet[4];
     char arg1[4], arg2[4];
     printf("Muvelet vegrehajtasa.\nMuvelet harombetus kodja majd a ket argumentum:\n[ADD szam1 szam2]\t\t- osszeadas\n[SUB kisebbitendo kivonando]\t- kivonas\n"
-    "[MUL szam1 szam2]\t\t- szorzas\n[DIV osztando oszto]\t\t- osztas\n[POW szam kitevo]\t\t- egesz hatvanyra emeles\n[CON szam alak(T/A)]\t\t- alakban kiiras.qn"
+    "[MUL szam1 szam2]\t\t- szorzas\n[DIV osztando oszto]\t\t- osztas\n[POW szam kitevo]\t\t- egesz hatvanyra emeles\n[CON szam alak(T/A)]\t\t- alakban kiiras.\n"
     "Az \"ANS\" szóra, az előző művelet eredményét veszi operátornak");
     printf("\nAdd meg a muveletet es  az argumentumokat: ");
     scanf(" %s %s %s%*[^\n]", &muvelet, &arg1, &arg2);

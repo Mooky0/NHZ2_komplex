@@ -1,10 +1,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-//#include "debugmalloc.h"
 #include "beolvasas.h"
 #include "filekezeles.h"
 #include "muveletek.h"
+#include "debugmalloc.h"
 
 
 /*Mentés függvény. a "szamok.txt"-be menti el a program az aktuálisan tárolt számokat.
