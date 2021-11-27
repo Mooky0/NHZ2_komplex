@@ -71,7 +71,7 @@ bool filebeolvas(komplex **fej){
 * az aktuálisan tárolt számokat látjuk ábrázolva. 
 * Visszatérési értéke bool. false, ha nem sikerült megnyitni a file-t, true, ha sikeres a kiírás.
 * paramétere: a fej, nem írja felül azt, csak olvassa.*/
-bool abrazol(komplex *fej){
+bool abrazol(komplex *fej, komplex *ans){
     FILE *fp;
     fp = fopen("szamsik.svg", "w");
     if (fp == NULL){
@@ -93,10 +93,14 @@ bool abrazol(komplex *fej){
     /*számok ábrázolása, algebrai alakba alakítás és ábrázolás*/
     komplex *mozgo = fej;
     while (mozgo != NULL){
+        char szin[7] = "325ca8";
+        if(mozgo == ans){
+            strcpy(szin, "c96b30");
+        }
         komplex_algebrai szam = trig_to_alg(mozgo);
         double x = (szam.Im * 30) + 300;
         double y = 300 - (szam.Re * 30);
-        fprintf(fp, "<line style=\"stroke:#d14508;\" x1=\"300\" y1=\"300\" x2=\"%f\" y2=\"%f\"/>\n", x, y);
+        fprintf(fp, "<line style=\"stroke:#%s;\" x1=\"300\" y1=\"300\" x2=\"%f\" y2=\"%f\"/>\n", szin, x, y);
         fprintf(fp, "<text x=\"%f\" y=\"%f\" font-size=\"8\">%x</text>\n    ", x, y, szam.az);
         mozgo = mozgo->kov;
     }
