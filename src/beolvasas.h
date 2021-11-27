@@ -23,7 +23,6 @@ typedef struct komplex{
 
 void beolvasas(komplex **fej);
 void felszabadit(komplex *fej);
-//void nagybetube(char *c);
 komplex *hozzafuz(komplex *fej, double r, double fi);
 void kiir(komplex *fej);
 komplex *kiirutolso(komplex *fej);

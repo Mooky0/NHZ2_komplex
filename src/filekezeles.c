@@ -6,6 +6,12 @@
 #include "filekezeles.h"
 #include "muveletek.h"
 
+
+/*Mentés függvény. a "szamok.txt"-be menti el a program az aktuálisan tárolt számokat.
+* Paramétere: fej, lista elejére mutató pointer, a fv nem változtatja, ezért csak komplex*
+* visszatérési értéke bool. true ha sikeres, false ha nem, pl nincs a mappában írási engedélyünk.
+* Az alakhoz a "T"-t írja mindenhova, hiszen, csak trigonometrikus alakban tároljuk a számokat. 
+* A függvényt csak a main hívja meg a megfelelő parancsra.*/
 bool mentes(komplex *fej){
     FILE* fp;
     fp = fopen("szamok.txt", "w");
@@ -24,6 +30,11 @@ bool mentes(komplex *fej){
     }
 }
 
+/*Beolvasas, a "szamok.txt"-ből olvassa be az oda mentett számokat. A fileban
+* lévő azonosítókat felülírja a program. A beolvasasánál lekezeli, ha a szám algebrai alakban van mentve.
+* visszatérési értéke: bool, a beolvasás sikerességéről, true ha sikeres, false ha nem.
+* paramétere: a fejre mutató pointer, mert akár felül is kell írnia azt.
+* A függvényt csak a beolvasás hívja meg a megfelelő parancsra.*/
 bool filebeolvas(komplex **fej){
     FILE *fp;
     fp = fopen("szamok.txt", "r");
@@ -36,7 +47,6 @@ bool filebeolvas(komplex **fej){
     double egy, ketto;
     while(feof(fp) == 0){
         fscanf(fp, " %c %x %lf %lf\n", &alak, &az, &egy, &ketto);
-        //printf("%c", alak);
         if (alak == 'T'){
             *fej = hozzafuz(*fej, egy, ketto);
         }
@@ -49,14 +59,18 @@ bool filebeolvas(komplex **fej){
             *fej = hozzafuz(*fej, szam.r, szam.fi);
         }
         else{
-            perror("Hibas file, alak hiba, szam atugrasa");
+            perror("Hibas file, alak hiba, szam atugrasa.");
         }
     }
     fclose(fp);
-    //kiir(*fej);
     return true;
 }
 
+/*Ábrázolás
+* ábrázolás svg-be "szamsik.svg"-be ábrázol a, mindenképpen felülírja azt, tehát ábrázolás után csak
+* az aktuálisan tárolt számokat látjuk ábrázolva. 
+* Visszatérési értéke bool. false, ha nem sikerült megnyitni a file-t, true, ha sikeres a kiírás.
+* paramétere: a fej, nem írja felül azt, csak olvassa.*/
 bool abrazol(komplex *fej){
     FILE *fp;
     fp = fopen("szamsik.svg", "w");

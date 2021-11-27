@@ -7,18 +7,22 @@
 #include "filekezeles.h"
 //#include "debugmalloc.h"
 
+/*Hozzáfüzés függvény:
+* Visszatérési érték: komplex pointer, azaz a fej, ami lehetséges, hogy változott,
+* paraméterei: a fej (visszatérve változtatja, ha kell), a szám hossza (r, valós szám),
+* a szám argumentumszöge (fi, valós szám). Lefoglal egy új komplex számnak memóriában helyet,
+* majd hossza fűzi a listához, ha a fej NULL (nincs lista) azt módosítja és adja vissza.
+* A függvényt használja más modul is*/
 komplex *hozzafuz(komplex *fej, double r, double fi){
     komplex *uj;
     uj = (komplex*) malloc(sizeof(komplex));
     if (uj == NULL)
         printf("malloc null\n");
-    //printf("malloc jo\n");
     uj->r = r;
     uj->fi = fi;
     uj->kov = NULL;
-    //printf("felotoltes jo\n");
     if (fej == NULL){
-        uj->az = 0x1a1;
+        uj->az = 0x1a1; //Innen kezdünk számolni a könnyű megkülönböztethetőség érdekében, és a program mindenhol hexadecimálisan várja és írja ki.
         return uj;
     }
 
@@ -35,6 +39,10 @@ komplex *hozzafuz(komplex *fej, double r, double fi){
     return fej;
 }
 
+/*Lista kiírása.
+* Nincs visszatérési értéke, paramétere a fej, nem változtatja azt.
+* végigmegy a listán és kiír minden elmet trigonometrikus alakban
+* A függvényt használja más modul is*/
 void kiir(komplex *fej){
     komplex *mozgo = fej;
     while (mozgo != NULL){
@@ -44,6 +52,10 @@ void kiir(komplex *fej){
     }
 }
 
+/*Kiírja az utolsó elemet és vissza is adja azt:
+* Visszatérési értéke: listaelemre mutató pointer, a lista utolsó eleme.
+* Paramétere: a fej, nem változtajta, azt.
+* Végigmegy a listán és az utolsó elemet kíírja és vissza is tér vele.*/
 komplex *kiirutolso(komplex *fej){
     komplex *mozgo = fej;
     while(mozgo->kov != NULL){
@@ -53,6 +65,9 @@ komplex *kiirutolso(komplex *fej){
     return mozgo;
 }
 
+/*Felszabadítás
+* Nincs visszatérési értéke, paramétere a lista elejére mutató pointer, fej,
+* nem változtatja azt. Végigmegy a listán és felszabadít minden elemet.*/
 void felszabadit(komplex *fej){
     komplex *iter = fej;
     while (iter != NULL) {
@@ -62,6 +77,11 @@ void felszabadit(komplex *fej){
     }
 }
 
+/*BEOLVASÁS MENU
+* Nincs visszatérési értéke, paramétere: a lista fejére mutató pointer.
+* Kiírja a beolvasás menüt, lekezeli a 3 opciót (algebrai, trigonometrikus, file)
+* és ha kell átalakít majd meghívja a hozzafuz függvényt hogy a lista végére fűzze a számot.
+* File-ból való beolvasásra meghívja a megfelelő függvényt, majd kiírja mindig a teljes új listát.*/
 void beolvasas(komplex **fej){
     printf("Milyen alakban szeretnél beolvasni, vagy File-bol?\n"
     "[A]lgebrai, [T]riginometriai avgy [F]ile?\n");
@@ -76,7 +96,6 @@ void beolvasas(komplex **fej){
         scanf("%lf", &szam.Im);
         komplex_trig ujszam = algebrai_to_trig(szam);
         *fej = hozzafuz(*fej, ujszam.r, ujszam.fi);
-        //komplex kompszam = algebrai_to_trig(&szam);
     }
     else if (alak == 'T'){
         double r, fi;
@@ -92,12 +111,3 @@ void beolvasas(komplex **fej){
     kiir(*fej);
 
 }
-
-// /*Pointerként kapott char-t alakít át nagybetűssé, ha kisbetű, ha bármi mi más
-// * a kapott pointerbe visszaadja ugyan az.*/
-// void nagybetube(char *c){
-//     if (*c >= 'a' && *c <= 'z')
-//         *c = *c - ('a' - 'A');
-//     else
-//         *c = *c;
-// }

@@ -10,8 +10,8 @@
 #include "muveletek.h"
 //#include "debugmalloc.h"
 
-/*Pointerként kapott char-t alakít át nagybetűssé, ha kisbetű, ha bármi mi más
-* a kapott pointerbe visszaadja ugyan az.*/
+/*Pointerként kapott char-t, ami lehet str is alakít át nagybetűssé, ha kisbetű, ha bármi mi más
+* a kapott pointerbe visszaadja ugyan azt. A függvényt más modulok is használják*/
 void nagybetube(char *c){
     int i = 0;
     while (c[i] != '\0'){
@@ -20,6 +20,9 @@ void nagybetube(char *c){
     }
 }
 
+/*Algebrai alakban kapott komplex számot alakít, trigonometrikus alakúvá
+* nem listaelemmé. Visszatérési értéke egy trigonometrikus komplex szám,
+* ezt a függvényt más modulok is használják.*/
 komplex_trig algebrai_to_trig(komplex_algebrai alg){
     komplex_trig trig;
     trig.r = sqrt(alg.Re*alg.Re + alg.Im * alg.Im);
@@ -29,6 +32,9 @@ komplex_trig algebrai_to_trig(komplex_algebrai alg){
 
 }
 
+/*Komlex listalemet alakít algebrai alakú komplex számmá.
+* Visszatérési értéke egy algebrai kompox szám.
+* Ezt a függvényt más modulok is használják.*/
 komplex_algebrai trig_to_alg(komplex *trig){
     komplex_algebrai alg;
     alg.Re = trig->r * cos((trig->fi * M_PI) / 180);
@@ -37,7 +43,10 @@ komplex_algebrai trig_to_alg(komplex *trig){
     return alg;
 }
 
-
+/*Kettő listaelemere muató pointer a paramétere, ezeket összeadja,
+* és visszaad egy trigonometrikus nem komplexet. A függvény először átaélakítja algebriai
+* alakká, a fenti müggvénnyel, majd a két részt összeadja, és az összeget visszaalakítja
+* trigonometrikus alakúva, de ez nem listattelem, a listáhot adás, a hívó dolga, ha szeretné.*/
 komplex_trig osszead(komplex *szam1_trig, komplex *szam2_trig){
 	komplex_trig visszaszam;
     komplex_algebrai temp;
@@ -51,7 +60,10 @@ komplex_trig osszead(komplex *szam1_trig, komplex *szam2_trig){
 
 }
 
-
+/*Kettő listaelemere muató pointer a paramétere, ezeket kivonja,
+* és visszaad egy trigonometrikus nem komplexet. A függvény először átaélakítja algebriai
+* alakká, a fenti müggvénnyel, majd a két részt kivonja, és az összeget visszaalakítja
+* trigonometrikus alakúva, de ez nem listattelem, a listáhot adás, a hívó dolga, ha szeretné.*/
 komplex_trig kivon(komplex *szam1, komplex *szam2){
     komplex_trig visszaszam;   
     komplex_algebrai temp;
@@ -63,7 +75,9 @@ komplex_trig kivon(komplex *szam1, komplex *szam2){
     return visszaszam;
 }
 
-
+/*Kettő listaelemere muató pointer a paramétere, ezeket összeszorozza,
+* és visszaad egy trigonometrikus nem komplexet, de ez nem listattelem,
+* a listáhot adás, a hívó dolga, ha szeretné.*/
 komplex_trig szorzas(komplex *szam1, komplex *szam2){
     komplex_trig visszaszam;
     visszaszam.r = szam1->r * szam2->r;
@@ -71,7 +85,10 @@ komplex_trig szorzas(komplex *szam1, komplex *szam2){
     return visszaszam;
 }
 
-
+/*Kettő listaelemere muató pointer a paramétere, először az osztandó,
+* majd az osztó ezeket elosztja, és visszaad egy trigonometrikus
+* nem komplexet, de ez nem listattelem,
+* a listáhot adás, a hívó dolga, ha szeretné.*/
 komplex_trig osztas(komplex *osztando, komplex *oszto){
     komplex_trig visszaszam;
     visszaszam.r = osztando->r / oszto->r;
@@ -79,7 +96,8 @@ komplex_trig osztas(komplex *osztando, komplex *oszto){
     return visszaszam;
 }
 
-
+/*Paramáterei: komplex listattele, tehát trigonometrikus alakban a hatványalap,
+* majd egy egész szám, a hatványkitevő*/
 komplex_trig hatvany(komplex *alap, int kitevo){
     komplex_trig visszaszam;
     visszaszam.fi = kitevo * alap->fi;
@@ -92,11 +110,17 @@ komplex_trig hatvany(komplex *alap, int kitevo){
     return visszaszam;
 }
 
+/*MÜVELETI MENÜ FÜGGVÉNY
+* A főmenü hívja meg, nincs visszatérési értéke.
+* Paraméterei: a lista elejére mutató pointer pointer (fej), az ans szintén komplex** ezt a főprogram tárolja.
+* Kiírja és kezeli a műveletek menüjét. Átalakítja a művelet parancs után kapott 2 paramétert számmá, 
+* ha kell, és meghívja a műveleti függvényeket, az új számot hozzáírja a listához, és kiírja az új számot.*/
 void muvelet(komplex **fej, komplex **ans){
     char muvelet[4];
     char arg1[4], arg2[4];
     printf("Muvelet vegrehajtasa.\nMuvelet harombetus kodja majd a ket argumentum:\n[ADD szam1 szam2]\t\t- osszeadas\n[SUB kisebbitendo kivonando]\t- kivonas\n"
-    "[MUL szam1 szam2]\t\t- szorzas\n[DIV osztando oszto]\t\t- osztas\n[POW szam kitevo]\t\t- egesz hatvanyra emeles\n[CON szam alak(T/A)]\t\t- alakban kiiras.");
+    "[MUL szam1 szam2]\t\t- szorzas\n[DIV osztando oszto]\t\t- osztas\n[POW szam kitevo]\t\t- egesz hatvanyra emeles\n[CON szam alak(T/A)]\t\t- alakban kiiras.qn"
+    "Az \"ANS\" szóra, az előző művelet eredményét veszi operátornak");
     printf("\nAdd meg a muveletet es  az argumentumokat: ");
     scanf(" %s %s %s%*[^\n]", &muvelet, &arg1, &arg2);
     nagybetube(muvelet);

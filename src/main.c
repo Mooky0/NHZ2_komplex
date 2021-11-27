@@ -6,6 +6,13 @@
 #include "filekezeles.h"
 //#include "debugmalloc.h"
 
+
+/*FŐMENÜ
+* Ez a főprogram. A számokat dinamikusan láncolt listában tárolja a program a lista elejét (fej, az
+* első elemre mutató pointer) és az ans (előző müvelet eredményére mutatató pointert) 
+* a program itt hozza létre, kezdetben NULL. A kilépés funkció (Q) a 
+* ciklus kilépési felétele, emiatt amíg nem akarunk kilépni a menü újra meg újra lefut. A ciklus
+* után (ha ki akarunk lépni) van a lista felszabadítása (fv: beolvasás)*/
 int main(){
 	char opcio;
     komplex *fej = NULL;
