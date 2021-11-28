@@ -110,6 +110,25 @@ komplex_trig hatvany(komplex *alap, int kitevo){
     return visszaszam;
 }
 
+komplex *kikeres(komplex *fej, char* arg){
+    char *temp;
+    int az1;
+    az1 = (int)strtol(arg, &temp, 16);
+    if (*temp != '\0'){
+        printf("Nem hexadecimálisan adta meg az azonosítót.");
+        return NULL;
+    }
+    komplex *mozgo = fej;
+    while (mozgo != NULL && mozgo->az != az1){
+        mozgo = mozgo->kov;
+    }
+    if (mozgo == NULL){
+        perror("Nincs ilyen azonositoju szám menteve");
+        return NULL;
+    }
+    return mozgo;
+}
+
 /*MÜVELETI MENÜ FÜGGVÉNY
 * A főmenü hívja meg, nincs visszatérési értéke.
 * Paraméterei: a lista elejére mutató pointer pointer (fej), az ans szintén komplex** ezt a főprogram tárolja.
@@ -129,6 +148,7 @@ void muvelet(komplex **fej, komplex **ans){
         
         gets(tomb);
 
+        //beolvasott nagybetűbe alakítása és kilépési feltétel ellenőrzés
         nagybetube(tomb);
         if (tomb[0] == 'Q'){
             feltetel = false;
@@ -136,10 +156,21 @@ void muvelet(komplex **fej, komplex **ans){
         }
         char *rest = tomb;
 
+        //beolvasott felszabdalása 3 str-é (muvelet, arg1, arg2)
         muvelet = strtok_r(tomb, " ", &rest);
         arg1 = strtok_r(NULL, " ", &rest);
+        if (arg1 == NULL){
+            printf("Ismeretlen muvelet");
+            return;
+        }
         arg2 = strtok_r(NULL, " ", &rest);
+        if (arg2 == NULL){
+            printf("ismeretlen muvelet");
+            return;
+        }
 
+        //elso számnak mindeképp azonosítónak kell lennie, vagy ans-nak
+        //megnézzük, hogy ans-e, és ha nem, szám kikeresése a kistából
         komplex *szam1;
         if(strcmp(arg1, "ANS") == 0){
             if (*ans == NULL){
@@ -147,25 +178,13 @@ void muvelet(komplex **fej, komplex **ans){
                 return;
             }
             szam1 = *ans;
-        } else{
-            char *temp;
-            int az1;
-            az1 = (int)strtol(arg1, &temp, 16);
-            if (*temp != '\0'){
-                printf("Nem hexadecimálisan adta meg az azonosítót.");
+        } else{ //kikeresés a listából
+            szam1 = kikeres(*fej, arg1);
+            if (szam1 == NULL)
                 return;
-            }
-            komplex *mozgo = *fej;
-            while (mozgo != NULL && mozgo->az != az1){
-                mozgo = mozgo->kov;
-            }
-            if (mozgo == NULL){
-                perror("Nincs ilyen azonositoju szám menteve");
-                return;
-            }
-            szam1 = mozgo;
         }
 
+        //megnézzük, hogy a második argumentum ans-e
         komplex *szam2;
         if (strcmp(arg2, "ANS") == 0){
             if(*ans == NULL){
@@ -175,57 +194,60 @@ void muvelet(komplex **fej, komplex **ans){
             szam2 = *ans;
         } else {
             char *temp;
-            /*megnézzük, hogy a művelet ADD/SUB/MUL/DIV mert akkor mindkettő számot ki kell keresni*/
+            /*megnézzük, hogy a művelet ADD/SUB/MUL/DIV mert akkor mindkettő számot ki kell keresni, ha igen, kikeressük a 2. számot is*/
             if (strcmp(muvelet, "ADD") == 0 || strcmp(muvelet, "SUB") == 0 || strcmp(muvelet, "MUL") == 0 || strcmp(muvelet, "DIV") == 0){
-                int az2;
-                az2 = (int) strtol(arg2, &temp, 16);
-                if (*temp != '\0'){
-                    printf("Nem hexadecimálisan adta meg az azonosítót.");
+                szam2 = kikeres(*fej, arg2);
+                if (szam2 == NULL)
                     return;
-                }
-                komplex *mozgo = *fej;
-                while (mozgo != NULL && mozgo->az != az2){
-                    mozgo = mozgo->kov;
-                }
-                if(mozgo == NULL){
-                    perror("Nincs a listaban ilyen azonositoju szam.");
-                    return;
-                }
-                szam2 = mozgo;
             }
         }
 
+        //menü lekezelése, esetek
         komplex_trig szam;
         if (strcmp(muvelet, "ADD") == 0){
             szam = osszead(szam1, szam2);
             *fej = hozzafuz(*fej, szam.r, szam.fi);
             *ans = kiirutolso(*fej);
+            getchar();
         } else if (strcmp(muvelet, "SUB") == 0){
             szam = kivon(szam1, szam2);
             *fej = hozzafuz(*fej, szam.r, szam.fi);
             *ans = kiirutolso(*fej);
+            getchar();
         } else if (strcmp(muvelet, "MUL") == 0){
             szam = szorzas(szam1, szam2);
             *fej = hozzafuz(*fej, szam.r, szam.fi);
             *ans = kiirutolso(*fej);
+            getchar();
         } else if (strcmp(muvelet, "DIV") == 0){
             szam = osztas(szam1, szam2);
             *fej = hozzafuz(*fej, szam.r, szam.fi);
             *ans = kiirutolso(*fej);
+            getchar();
         } else if (strcmp(muvelet, "POW") == 0){
-            int kitevo = (int)strtol(arg2, NULL, 10);
+            char *temp;
+            int kitevo = (int)strtol(arg2, &temp, 10);
+            if(*temp != '\0'){
+                printf("Nem megfelelo hatványkitevo");
+                return;
+            }
             szam = hatvany(szam1, kitevo);
             *fej = hozzafuz(*fej, szam.r, szam.fi);
             *ans = kiirutolso(*fej);
+            getchar();
         } else if (strcmp(muvelet, "CON") == 0){
             if (arg2[0] == 'T'){
                 printf("%x: Hossz: %f, Szog: %f\n", szam1->az, szam1->r, szam1->fi);
+                getchar();
             }
             else if (arg2[0] == 'A'){
                 komplex_algebrai szam_alg = trig_to_alg(szam1);
                 printf("%x: Re:%f, Im:%f\n", szam_alg.az, szam_alg.Re, szam_alg.Im);
+                getchar();
             }
-        } else
+        } else{
             perror("Ismertlen muvelet");
+            getchar();
+        }
     }
 }
