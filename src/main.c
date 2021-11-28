@@ -42,6 +42,7 @@ int main(){
         case 'P':
         case 'K':
             kiir(fej);
+            getchar();
             break;
         default:
             printf("Ismeretlen input");

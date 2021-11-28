@@ -110,28 +110,6 @@ komplex_trig hatvany(komplex *alap, int kitevo){
     return visszaszam;
 }
 
-/*Kikeresi a kistából a paraméterként kopott azonosítóju számot
-* paraméterei: a lista eleje(fej), azonosító sztringként
-* visszatérési értéke, a számra mutató pointer (komplex*)*/
-komplex *kikeres(komplex *fej, char* arg){
-    char *temp;
-    int az1;
-    az1 = (int)strtol(arg, &temp, 16);
-    if (*temp != '\0'){
-        printf("Nem hexadecimálisan adta meg az azonosítót.");
-        return NULL;
-    }
-    komplex *mozgo = fej;
-    while (mozgo != NULL && mozgo->az != az1){
-        mozgo = mozgo->kov;
-    }
-    if (mozgo == NULL){
-        perror("Nincs ilyen azonositoju szám menteve");
-        return NULL;
-    }
-    return mozgo;
-}
-
 /*MÜVELETI MENÜ FÜGGVÉNY
 * A főmenü hívja meg, nincs visszatérési értéke.
 * Paraméterei: a lista elejére mutató pointer pointer (fej), az ans szintén komplex** ezt a főprogram tárolja.
@@ -204,7 +182,7 @@ void muvelet(komplex **fej, komplex **ans){
                     return;
             }
         }
-
+        fflush(stdin);
         //menü lekezelése, esetek
         komplex_trig szam;
         if (strcmp(muvelet, "ADD") == 0){
@@ -240,12 +218,12 @@ void muvelet(komplex **fej, komplex **ans){
             getchar();
         } else if (strcmp(muvelet, "CON") == 0){
             if (arg2[0] == 'T'){
-                printf("%x: Hossz: %f, Szog: %f\n", szam1->az, szam1->r, szam1->fi);
+                printf("0x%X: Hossz: %f, Szog: %f\n", szam1->az, szam1->r, szam1->fi);
                 getchar();
             }
             else if (arg2[0] == 'A'){
                 komplex_algebrai szam_alg = trig_to_alg(szam1);
-                printf("%x: Re:%f, Im:%f\n", szam_alg.az, szam_alg.Re, szam_alg.Im);
+                printf("0x%X: Re:%f, Im:%f\n", szam_alg.az, szam_alg.Re, szam_alg.Im);
                 getchar();
             }
         } else{

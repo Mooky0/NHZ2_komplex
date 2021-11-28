@@ -26,5 +26,6 @@ void felszabadit(komplex *fej);
 komplex *hozzafuz(komplex *fej, double r, double fi);
 void kiir(komplex *fej);
 komplex *kiirutolso(komplex *fej);
+komplex *kikeres(komplex *fej, char* arg);
 
 #endif

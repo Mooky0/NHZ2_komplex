@@ -47,7 +47,7 @@ void kiir(komplex *fej){
     komplex *mozgo = fej;
     while (mozgo != NULL){
         //printf("belep\n");
-        printf("%x: Hossz: %f, Szog: %f\n", mozgo->az, mozgo->r, mozgo->fi);
+        printf("0x%X: Hossz: %f, Szog: %f\n", mozgo->az, mozgo->r, mozgo->fi);
         mozgo = mozgo->kov;
     }
 }
@@ -61,7 +61,7 @@ komplex *kiirutolso(komplex *fej){
     while(mozgo->kov != NULL){
         mozgo = mozgo->kov;
     }
-    printf("%x: Hossz: %f, Szog: %f\n", mozgo->az, mozgo->r, mozgo->fi);
+    printf("0x%X: Hossz: %f, Szog: %f\n", mozgo->az, mozgo->r, mozgo->fi);
     return mozgo;
 }
 
@@ -77,6 +77,28 @@ void felszabadit(komplex *fej){
     }
 }
 
+/*Kikeresi a kistából a paraméterként kopott azonosítóju számot
+* paraméterei: a lista eleje(fej), azonosító sztringként
+* visszatérési értéke, a számra mutató pointer (komplex*)*/
+komplex *kikeres(komplex *fej, char* arg){
+    char *temp;
+    int az1;
+    az1 = (int)strtol(arg, &temp, 16);
+    if (*temp != '\0'){
+        printf("Nem hexadecimálisan adta meg az azonosítót.");
+        return NULL;
+    }
+    komplex *mozgo = fej;
+    while (mozgo != NULL && mozgo->az != az1){
+        mozgo = mozgo->kov;
+    }
+    if (mozgo == NULL){
+        perror("Nincs ilyen azonositoju szám menteve");
+        return NULL;
+    }
+    return mozgo;
+}
+
 /*BEOLVASÁS MENU
 * Nincs visszatérési értéke, paramétere: a lista fejére mutató pointer.
 * Kiírja a beolvasás menüt, lekezeli a 3 opciót (algebrai, trigonometrikus, file)
@@ -87,6 +109,7 @@ void beolvasas(komplex **fej){
     "[A]lgebrai, [T]riginometriai avgy [F]ile?\n");
     char alak;
     scanf(" %c%*[^\n]", &alak);
+    fflush(stdin);
     nagybetube(&alak);
     if (alak == 'A'){
         komplex_algebrai szam;
@@ -109,5 +132,6 @@ void beolvasas(komplex **fej){
         filebeolvas(&*fej);
     }
     kiir(*fej);
+    getchar();
 
 }
