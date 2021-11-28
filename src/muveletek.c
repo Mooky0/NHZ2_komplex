@@ -110,6 +110,9 @@ komplex_trig hatvany(komplex *alap, int kitevo){
     return visszaszam;
 }
 
+/*Kikeresi a kistából a paraméterként kopott azonosítóju számot
+* paraméterei: a lista eleje(fej), azonosító sztringként
+* visszatérési értéke, a számra mutató pointer (komplex*)*/
 komplex *kikeres(komplex *fej, char* arg){
     char *temp;
     int az1;
