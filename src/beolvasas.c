@@ -98,7 +98,7 @@ komplex *kikeres(komplex *fej, char* arg){
     }
     return mozgo;
 }
-
+//alma//
 /*BEOLVASÁS MENU
 * Nincs visszatérési értéke, paramétere: a lista fejére mutató pointer.
 * Kiírja a beolvasás menüt, lekezeli a 3 opciót (algebrai, trigonometrikus, file)
