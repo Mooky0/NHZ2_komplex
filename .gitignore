@@ -56,4 +56,9 @@ dkms.conf
 tictactoe/
 .vscode/
 test*.*
+src/*.txt
+src/*.svg
+src/szamsik.svg
+./src/*.svg
+*.svg
 # beolvasas.*
